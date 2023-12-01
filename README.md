@@ -2,6 +2,7 @@ Objetivos
 Aprender a manejar la criptografía simétrica y asimétrica, así como los algoritmos hash.
 
 Pautas de elaboración
+
 Requerimiento 1
 
 Se pide hacer una aplicación que encripte frases introducidas por el usuario de manera simétrica.
@@ -9,8 +10,11 @@ Se pide hacer una aplicación que encripte frases introducidas por el usuario de
 La aplicación mostrará el siguiente menú
 
 Salir del programa
+
 Encriptar frase
+
 Desencriptar frase
+
 Con la opción 1 el programa le pedirá al usuario una frase, la encriptará y la guardará en memoria.
 
 Con la opción 2 el programa mostrará la frase desencriptándola.
