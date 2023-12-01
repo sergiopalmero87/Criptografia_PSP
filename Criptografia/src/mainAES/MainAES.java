@@ -28,12 +28,13 @@ public class MainAES {
 			System.out.println("Paso 3: Hemos obtenido el cifrador/descifrador");
 
 			// Creamos el menu con su variable opcion para controlar lo que pide el usuario.
-			//Creamos tambien la variable fraseOrigianl para guardar en memoria la frase del usuario.
-			//Lo metemos todo dentro de un do-while para controlar la variable opcion.
+			// Creamos tambien la variable fraseOriginal para guardar en memoria la frase
+			// del usuario.
+			// Lo metemos todo dentro de un do-while para controlar la variable opcion.
 			int opcion;
-            String fraseOriginal = null; // Variable para almacenar la frase original
-            byte[] bytesFraseCifrada = null;
-            
+			String fraseOriginal = null; 
+			byte[] bytesFraseCifrada = null;
+
 			do {
 				System.out.println("---MENU---");
 				System.out.println("1. Cifrar frase:");
@@ -45,8 +46,7 @@ public class MainAES {
 				sc.nextLine();
 
 				String fraseCifrada, fraseDescifrada;
-				
-				
+
 				switch (opcion) {
 				case 1:
 					System.out.println("Escribe tu frase para encriptar:");
@@ -65,25 +65,25 @@ public class MainAES {
 					System.out.println("Frase original: " + fraseOriginal);
 					System.out.println("Frase cifrada: " + fraseCifrada);
 					break;
-					
+
 				case 2:
-                        // Ahora el cifrador lo configuramos para que use la clave simétrica
-                        // para desencriptar
-                        cifrador.init(Cipher.DECRYPT_MODE, clave);
-                        byte[] bytesFraseDescifrada = cifrador.doFinal(bytesFraseCifrada);
-                        fraseDescifrada = new String(bytesFraseDescifrada);
-                        System.out.println("Descifrando la frase...");
-                        System.out.println("Frase descifrada: " + fraseDescifrada);
-                    break;
-                    
+					// Ahora el cifrador lo configuramos para que use la clave simétrica
+					// para desencriptar
+					cifrador.init(Cipher.DECRYPT_MODE, clave);
+					byte[] bytesFraseDescifrada = cifrador.doFinal(bytesFraseCifrada);
+					fraseDescifrada = new String(bytesFraseDescifrada);
+					System.out.println("Descifrando la frase...");
+					System.out.println("Frase descifrada: " + fraseDescifrada);
+					break;
+
 				case 3:
 					System.out.println("Saliendo del programa...");
 					break;
-					
+
 				default:
 					System.out.println("Introduzca una opción válida.");
 				}
-				
+
 			} while (opcion != 3);
 
 			// Simplificamos las excepciones capturando GeneralSecurityException
