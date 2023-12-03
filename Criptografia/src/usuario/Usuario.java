@@ -65,7 +65,7 @@ public class Usuario {
 	}
 	
 	
-	public String generarHash(String passwordUser) throws NoSuchAlgorithmException{
+	public boolean compararHash(String passwordUser) throws NoSuchAlgorithmException{
 		
 		byte[] password = passwordUser.getBytes();
 		
@@ -74,10 +74,10 @@ public class Usuario {
 		
 		byte[] passwordHasheada = md.digest();
 		String mensajePassword = new String(passwordHasheada);
-		System.out.println("Resumen password 1 hash: " + mensajePassword);
+		System.out.println("Resumen password hash: " + mensajePassword);
 		
 		String password_HashBase64 = Base64.getEncoder().encodeToString(passwordHasheada);
-		return password_HashBase64;
+		return true;
 		
 		
 	}

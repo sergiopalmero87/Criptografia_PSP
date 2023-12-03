@@ -24,6 +24,7 @@ public class MainAES {
 		byte[] password2 = "987654321".getBytes();
 		byte[] password3 = "0000".getBytes();
 
+		
 		// Creamos un objeto MessageDigest a través del método estático
 		// getInstance() al que se le pasa el tipo de algoritmo que vamos a
 		// utilizar.
@@ -34,14 +35,13 @@ public class MainAES {
 		md.update(password2);
 
 		md.update(password3);
+		
 
 		// Ahora ejecutamos el método "digest()" de nuestro
 		// objeto MessageDigest para obtener el resumen, que también
 		// será una cadena de bytes.
 		System.out.println("Creando las passwords hasheadas...");
 		
-		
-
 		byte[] password1Hasheada = md.digest();
 		String mensajePassword1 = new String(password1Hasheada);
 
@@ -50,6 +50,7 @@ public class MainAES {
 
 		byte[] password3Hasheada = md.digest();
 		String mensajePassword3 = new String(password1Hasheada);
+		
 
 		// Podemos pasarlo a la codificación BASE 64 si queremos reducir el alfa
 		// alfabeto resultante. Puede ser util si queremos guardar la información
@@ -73,6 +74,8 @@ public class MainAES {
 		listaUsuarios.add(u1);
 		listaUsuarios.add(u2);
 		listaUsuarios.add(u3);
+		
+		System.out.println(listaUsuarios);
 
 		// Con esta variable controlamos las veces que el usuario puede poner los datos.
 		int intentos = 3;
@@ -84,14 +87,24 @@ public class MainAES {
 			System.out.println("NAME: ");
 			String nombreUser = sc.nextLine();
 
+			//TODO: Arreglar esto.
 			System.out.println("PASSWORD: ");
 			String passwordUser = sc.nextLine();
-
+			
+			byte[] passwordUserByte = passwordUser.getBytes();
+			md.update(passwordUserByte);
+			byte[] passwordUserHasheada = md.digest();
+			String mensajePasswordUser = new String(passwordUserHasheada);
+			String passwordUserHashBase64 = Base64.getEncoder().encodeToString(passwordUserHasheada);
+			
+			
 			// Por cada usuario que haya en la lista...
 			for (Usuario u : listaUsuarios) {
-				if (nombreUser.equals(u.getNombre())) {
+				if (nombreUser.equals(u.getNombre())){
 					System.out.println("Hola " + u.getNombre());
-					System.out.println("Tu contraseña es: " + passwordUser);
+					System.out.println(passwordUser);
+					System.out.println(passwordUserHashBase64);
+					System.out.println(u.getPassword());
 
 					try {
 						// Creamos el generador a partir del cual obtendremos la clave simetrica.
