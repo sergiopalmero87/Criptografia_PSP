@@ -13,7 +13,6 @@ public class Usuario {
 
     private String nombre;
     private String password;
-    private List<Usuario> listaUsuarios = new ArrayList<>();
     
     
     public Usuario(String nombre, String password) {
@@ -39,16 +38,6 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public List<Usuario> getListaUsuarios() {
-		return listaUsuarios;
-	}
-
-
-	public void setListaUsuarios(List<Usuario> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
-	}
-
 
 	//Equals and hashcode
     @Override
