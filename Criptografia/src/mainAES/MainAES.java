@@ -28,13 +28,16 @@ public class MainAES {
 		// Creamos un objeto MessageDigest a través del método estático
 		// getInstance() al que se le pasa el tipo de algoritmo que vamos a
 		// utilizar.
-		MessageDigest md = MessageDigest.getInstance("SHA-512");
+		MessageDigest md1 = MessageDigest.getInstance("SHA-512");
+		MessageDigest md2 = MessageDigest.getInstance("SHA-512");
+		MessageDigest md3 = MessageDigest.getInstance("SHA-512");
+		
 
-		md.update(password1);
+		md1.update(password1);
 
-		md.update(password2);
+		md2.update(password2);
 
-		md.update(password3);
+		md3.update(password3);
 		
 
 		// Ahora ejecutamos el método "digest()" de nuestro
@@ -42,13 +45,13 @@ public class MainAES {
 		// será una cadena de bytes.
 		System.out.println("Creando las passwords hasheadas...");
 		
-		byte[] password1Hasheada = md.digest();
+		byte[] password1Hasheada = md1.digest();
 		String mensajePassword1 = new String(password1Hasheada);
 
-		byte[] password2Hasheada = md.digest();
+		byte[] password2Hasheada = md2.digest();
 		String mensajePassword2 = new String(password1Hasheada);
 
-		byte[] password3Hasheada = md.digest();
+		byte[] password3Hasheada = md3.digest();
 		String mensajePassword3 = new String(password1Hasheada);
 		
 
@@ -87,24 +90,26 @@ public class MainAES {
 			System.out.println("NAME: ");
 			String nombreUser = sc.nextLine();
 
-			//TODO: Arreglar esto.
 			System.out.println("PASSWORD: ");
 			String passwordUser = sc.nextLine();
 			
+			MessageDigest mdUser = MessageDigest.getInstance("SHA-512");
+			
 			byte[] passwordUserByte = passwordUser.getBytes();
-			md.update(passwordUserByte);
-			byte[] passwordUserHasheada = md.digest();
+			mdUser.update(passwordUserByte);
+			byte[] passwordUserHasheada = mdUser.digest();
 			String mensajePasswordUser = new String(passwordUserHasheada);
 			String passwordUserHashBase64 = Base64.getEncoder().encodeToString(passwordUserHasheada);
 			
 			
-			// Por cada usuario que haya en la lista...
+			// Por cada usuario que haya en la lista 
+			// comparamos que si tanto el nombre como la contraseña hasheada es igual a lo que el usuario nos da por scanner
+			// entonces mostramos el menu.
+			// Si no es asi tiene 3 oportunidas en total y al final el programa termina solo.
 			for (Usuario u : listaUsuarios) {
-				if (nombreUser.equals(u.getNombre())){
-					System.out.println("Hola " + u.getNombre());
-					System.out.println(passwordUser);
-					System.out.println(passwordUserHashBase64);
-					System.out.println(u.getPassword());
+				if (nombreUser.equals(u.getNombre()) && u.getPassword().equals(passwordUserHashBase64)){
+					System.out.println("\nHola " + u.getNombre());
+					System.out.println("Tu contraseña es: " + passwordUserHashBase64 + "\n");
 
 					try {
 						// Creamos el generador a partir del cual obtendremos la clave simetrica.
@@ -171,7 +176,7 @@ public class MainAES {
 
 							case 3:
 								System.out.println("Saliendo del programa...");
-								System.out.println("Adios.");
+								System.out.println("Adiós " + u.getNombre() + ".");
 								break;
 
 							default:
