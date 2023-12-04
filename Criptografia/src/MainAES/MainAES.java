@@ -15,67 +15,114 @@ import Encriptar.Encriptar;
 import Usuario.Usuario;
 
 public class MainAES {
-	
 
 	public static void main(String args[]) throws NoSuchAlgorithmException {
-		
+
 		Encriptar e = new Encriptar();
 
+		// OTRA FORMA DE HACERLO:
+		/*
+		 * // Creamos los objetos Usuario Usuario user1 = new Usuario("Tony", "admin");
+		 * Usuario user2 = new Usuario("Steve", "Hail Hydra"); Usuario user3 = new
+		 * Usuario("Peter", "maryjane");
+		 * 
+		 * // convertimos las contraseñas en bytes byte[] password1 =
+		 * user1.getPassword().getBytes(); byte[] password2 =
+		 * user2.getPassword().getBytes(); byte[] password3 =
+		 * user3.getPassword().getBytes();
+		 * 
+		 * // Creamos un objeto MessageDigest a través del método estático //
+		 * getInstance() al que se le pasa el tipo de algoritmo que vamos a // utilizar.
+		 * MessageDigest md1 = MessageDigest.getInstance("SHA-512"); MessageDigest md2 =
+		 * MessageDigest.getInstance("SHA-512"); MessageDigest md3 =
+		 * MessageDigest.getInstance("SHA-512");
+		 * 
+		 * // Actualizamos las contraseñas de los usuarios y lo preparamos para
+		 * convertirlo // a hash md1.update(password1); md2.update(password2);
+		 * md3.update(password3);
+		 * 
+		 * // Ahora ejecutamos el método "digest()" para convertirlo a hash, pero esta
+		 * en // binario. byte[] password1Hasheada = md1.digest(); byte[]
+		 * password2Hasheada = md2.digest(); byte[] password3Hasheada = md3.digest();
+		 * 
+		 * // Lo pasamos a codificación BASE 64 para que sea mas legible. // Puede ser
+		 * util si queremos guardar la información o enviar la información. String
+		 * password1_HashBase64 = Base64.getEncoder().encodeToString(password1Hasheada);
+		 * String password2_HashBase64 =
+		 * Base64.getEncoder().encodeToString(password2Hasheada); String
+		 * password3_HashBase64 = Base64.getEncoder().encodeToString(password3Hasheada);
+		 * 
+		 * // Creamos una lista donde almacenar los usuarios. List<Usuario>
+		 * listaUsuarios = new ArrayList<>();
+		 * 
+		 * // cambiamos las contraseñas originales por las contraseñas hasheadas
+		 * user1.setPassword(password1_HashBase64);
+		 * user2.setPassword(password2_HashBase64);
+		 * user3.setPassword(password3_HashBase64);
+		 * 
+		 * // Guardamos los usuarios en una lista para poder acceder a ellos.
+		 * listaUsuarios.add(user1); listaUsuarios.add(user2); listaUsuarios.add(user3);
+		 */
+
 		// Creamos la contraseña a partir de la cual queremos crear su resumen.
-		// Lo pasamos a bytes ya que se necesita que la información este así para poder crear su resumen hash.
+		// Lo pasamos a bytes ya que se necesita que la información este así para poder
+		// crear su resumen hash.
+
 		byte[] password1 = "123456789".getBytes();
 		byte[] password2 = "987654321".getBytes();
 		byte[] password3 = "0000".getBytes();
 
-		
 		// Creamos un objeto MessageDigest a través del método estático
-		// getInstance() al que se le pasa el tipo de algoritmo que vamos a
-		// utilizar.
+		// getInstance() al que se le pasa el tipo de algoritmo que vamos a utilizar.
+
 		MessageDigest md1 = MessageDigest.getInstance("SHA-512");
 		MessageDigest md2 = MessageDigest.getInstance("SHA-512");
 		MessageDigest md3 = MessageDigest.getInstance("SHA-512");
-		
 
-		//Actualizamos las contraseñas de los usuarios y lo preparamos para convertirlo a hash
+		// Actualizamos las contraseñas de los usuarios y lo preparamos para convertirlo
+		// a hash
+
 		md1.update(password1);
 
 		md2.update(password2);
 
 		md3.update(password3);
-		
 
-		// Ahora ejecutamos el método "digest()" para convertirlo a hash, pero esta en binario.
+		// Ahora ejecutamos el método "digest()" para convertirlo a hash, pero esta en
+		// binario.
+
 		byte[] password1Hasheada = md1.digest();
-		
 
 		byte[] password2Hasheada = md2.digest();
-		
 
 		byte[] password3Hasheada = md3.digest();
-		
-		
+
 		// Lo pasamos a codificación BASE 64 para que sea mas legible.
 		// Puede ser util si queremos guardar la información o enviar la información.
+
 		String password1_HashBase64 = Base64.getEncoder().encodeToString(password1Hasheada);
 
 		String password2_HashBase64 = Base64.getEncoder().encodeToString(password2Hasheada);
 
 		String password3_HashBase64 = Base64.getEncoder().encodeToString(password3Hasheada);
 
+		// Creamos una lista donde almacenar los usuarios.
 
-		// Creamos una lista donde almacenar los usuarios. 
 		List<Usuario> listaUsuarios = new ArrayList<>();
 
 		// Usuarios en memoria con su nombre y contraseña hasheada
+
 		Usuario u1 = new Usuario("Sergio", password1_HashBase64);
+
 		Usuario u2 = new Usuario("David", password2_HashBase64);
+
 		Usuario u3 = new Usuario("Iris", password3_HashBase64);
 
 		// Guardamos los usuarios en una lista para poder acceder a ellos.
+
 		listaUsuarios.add(u1);
 		listaUsuarios.add(u2);
 		listaUsuarios.add(u3);
-		
 
 		// Con esta variable controlamos las veces que el usuario puede poner los datos.
 		int intentos = 3;
@@ -86,33 +133,32 @@ public class MainAES {
 
 			System.out.println("NAME: ");
 			String nombreUser = sc.nextLine();
-			
-		
+
 			System.out.println("\nPASSWORD: ");
 			String passwordUser = sc.nextLine();
-	
-			
-			// Por cada usuario que haya en la lista 
-			// comparamos que si tanto el nombre como la contraseña hasheada es igual a lo que el usuario nos da por scanner
+
+			// Por cada usuario que haya en la lista
+			// comparamos que si tanto el nombre como la contraseña hasheada es igual a lo
+			// que el usuario nos da por scanner
 			// entonces mostramos el menu.
-			// Si no es asi tiene 3 oportunidas en total y al final el programa termina solo.
+			// Si no es asi tiene 3 oportunidas en total y al final el programa termina
+			// solo.
 			for (Usuario u : listaUsuarios) {
-				if (nombreUser.equals(u.getNombre()) && u.getPassword().equals(e.generarHashUser(passwordUser))){
+				if (nombreUser.equals(u.getNombre()) && u.getPassword().equals(e.generarHashUser(passwordUser))) {
 					System.out.println("\n¡ Hola " + u.getNombre() + " bienvenid@ !");
 
 					try {
 						// Creamos el generador a partir del cual obtendremos la clave simetrica.
 						KeyGenerator generador = KeyGenerator.getInstance("AES");
-						
+
 						// Generamos la clave simetrica.
 						// Si se hiciera otra vez, obtendria otra clave DIFERENTE
 						SecretKey clave = generador.generateKey();
-						
+
 						// Objeto que nos permitira encriptar o desencriptar a partir de una
 						// clave
 						Cipher cifrador = Cipher.getInstance("AES");
-						
-						
+
 						// Creamos el menu con su variable opcion para controlar lo que pide el usuario.
 						// Creamos tambien la variable fraseOriginal para guardar en memoria la frase
 						// del usuario.
@@ -123,7 +169,7 @@ public class MainAES {
 
 						do {
 							menu();
-							
+
 							System.out.println("Elige una opcion:");
 							opcion = sc.nextInt();
 							sc.nextLine();
@@ -186,19 +232,19 @@ public class MainAES {
 				System.out.println("Fin del programa. Adios");
 				sc.close();
 				return;
-				
+
 			}
 
 		} while (intentos > 0);
 	}
 
 	public static void menu() {
-		
+
 		System.out.println("---MENU---");
 		System.out.println("1. Cifrar frase:");
 		System.out.println("2. Descifrar frase:");
 		System.out.println("3. Salir del programa:\n");
-		
+
 	}
 
 }
