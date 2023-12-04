@@ -1,4 +1,4 @@
-package mainAES;
+package MainAES;
 
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
@@ -11,11 +11,15 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import usuario.Usuario;
+import Encriptar.Encriptar;
+import Usuario.Usuario;
 
 public class MainAES {
+	
 
 	public static void main(String args[]) throws NoSuchAlgorithmException {
+		
+		Encriptar e = new Encriptar();
 
 		// Creamos la contraseña a partir de la cual queremos crear su resumen.
 		// Lo pasamos a bytes ya que se necesita que la información este así para poder crear su resumen hash.
@@ -93,7 +97,7 @@ public class MainAES {
 			// entonces mostramos el menu.
 			// Si no es asi tiene 3 oportunidas en total y al final el programa termina solo.
 			for (Usuario u : listaUsuarios) {
-				if (nombreUser.equals(u.getNombre()) && u.getPassword().equals(generarHash(passwordUser))){
+				if (nombreUser.equals(u.getNombre()) && u.getPassword().equals(e.generarHashUser(passwordUser))){
 					System.out.println("\n¡ Hola " + u.getNombre() + " bienvenid@ !");
 
 					try {
@@ -183,26 +187,12 @@ public class MainAES {
 
 			if (intentos == 0) {
 				System.out.println("Fin del programa. Adios");
+				sc.close();
 				return;
+				
 			}
 
 		} while (intentos > 0);
-	}
-
-	
-	// Generamos un hash a partir de una contraseña que nos de el usuario.
-	public static String generarHash(String passwordUser) throws NoSuchAlgorithmException {
-
-		byte[] password = passwordUser.getBytes();
-
-		MessageDigest mdUser = MessageDigest.getInstance("SHA-512");
-		mdUser.update(password);
-
-		byte[] passwordHasheada = mdUser.digest();
-
-		String passwordUserHashBase64 = Base64.getEncoder().encodeToString(passwordHasheada);
-		return passwordUserHashBase64;
-
 	}
 
 }

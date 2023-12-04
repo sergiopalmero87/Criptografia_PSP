@@ -1,8 +1,10 @@
-package usuario;
+package Usuario;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -11,7 +13,7 @@ public class Usuario {
 
     private String nombre;
     private String password;
-     
+    private List<Usuario> listaUsuarios = new ArrayList<>();
     
     
     public Usuario(String nombre, String password) {
@@ -36,6 +38,15 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public List<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
 	}
 
 
@@ -63,7 +74,6 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", password=" + password + "]";
 	}
-	
 	
     
 }
