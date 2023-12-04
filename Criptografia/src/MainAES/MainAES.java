@@ -117,16 +117,13 @@ public class MainAES {
 						// Creamos tambien la variable fraseOriginal para guardar en memoria la frase
 						// del usuario.
 						// Lo metemos todo dentro de un do-while para controlar la variable opcion.
-						int opcion;
+						int opcion = 0;
 						String fraseOriginal = null;
 						byte[] bytesFraseCifrada = null;
 
 						do {
-							System.out.println("---MENU---");
-							System.out.println("1. Cifrar frase:");
-							System.out.println("2. Descifrar frase:");
-							System.out.println("3. Salir del programa:\n");
-
+							menu();
+							
 							System.out.println("Elige una opcion:");
 							opcion = sc.nextInt();
 							sc.nextLine();
@@ -195,5 +192,13 @@ public class MainAES {
 		} while (intentos > 0);
 	}
 
+	public static void menu() {
+		
+		System.out.println("---MENU---");
+		System.out.println("1. Cifrar frase:");
+		System.out.println("2. Descifrar frase:");
+		System.out.println("3. Salir del programa:\n");
+		
+	}
 
 }
