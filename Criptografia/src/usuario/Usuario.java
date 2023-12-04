@@ -65,23 +65,5 @@ public class Usuario {
 	}
 	
 	
-	public boolean compararHash(String passwordUser) throws NoSuchAlgorithmException{
-		
-		byte[] password = passwordUser.getBytes();
-		
-		MessageDigest md = MessageDigest.getInstance("SHA-512");
-		md.update(password);
-		
-		byte[] passwordHasheada = md.digest();
-		String mensajePassword = new String(passwordHasheada);
-		System.out.println("Resumen password hash: " + mensajePassword);
-		
-		String password_HashBase64 = Base64.getEncoder().encodeToString(passwordHasheada);
-		return true;
-		
-		
-	}
-	
-	
     
 }
